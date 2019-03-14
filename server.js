@@ -16,7 +16,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/timestamp/:date_string", (req, res) => {
-  let date = new Date(req.params.date_string);
+  
+  let date = req.params.date_string;
+  date = req.params.date_string.indexOf('-') < 0 ? parseInt(date) : date;
+  date = new Date(date);
   res.json({"unix": date.getTime(), "utc": date.toUTCString()});
 });
 
